@@ -17,19 +17,9 @@ DAPX aims to improve the usability of peer-to-peer networks by integrating:
 
 All of these objectives must be achieved without compromising the core principles of strong encryption, decentralization, and the fundamental pillars of information security.
 
-## Core & Principles
+## Documentation
 
-### Peer-to-Peer Communication
-DAPX steps in where direct peer-to-peer communication fails. **Peer-to-peer connectivity shall always be prioritized.** When direct communication is not possible, DAPX provides supporting mechanisms such as offline message delivery and decentralized discovery to maintain network usability.
-
-### Asynchronous Delivery
-If a recipient is offline, DAPX enables asynchronous communication through mailbox and relay nodes.  
-Mailbox nodes temporarily store encrypted messages for offline recipients until they reconnect and retrieve them. Relay nodes assist in forwarding messages through the network.
-
-### Decentralized Discovery
-DAPX uses index nodes to enable discovery of peers, communities, and services within the network. They do not host messages, store private data, or participate in communication between clients. Clients simply read public information from index nodes.
-
-Multiple independent index nodes may exist, and none control or govern the network. **Governance of discoverability remains with the users.**
+See the architecture documentation in [`docs/`](./docs/README.md)
 
 ---
 
