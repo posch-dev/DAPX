@@ -34,9 +34,7 @@ The client attempts a direct connection to the recipient. This includes NAT trav
 
 ### 2. Relay
 
-If no direct path can be established, the client attempts to forward the message through the recipient's relay nodes. The recipient defines which relay nodes to use and in what order. The sender follows this configuration as provided in the recipient's contact information.
-
-The client tries each relay in the order specified by the recipient. If one relay is unreachable, the client moves to the next.
+If no direct path can be established, the client attempts to forward the message through the recipient's relay nodes. The recipient defines a relay cluster and a chain length range as part of their [configuration](./Configuration.md). The sender constructs a random relay chain from this cluster following the [relay protocol](./RelayProtocol.md).
 
 
 
@@ -58,9 +56,9 @@ The client needs the recipient's routing configuration to execute this sequence.
 
 
 
-**Between friends:** The recipient's routing configuration is part of the contact information exchanged during friendship establishment. The recipient can update this configuration at any time by sending an [update](./PacketFormat.md) message to the sender.
+**Between friends:** The recipient's [routing information](./RoutingInfo.md) is exchanged during [friendship establishment](./FriendRequest.md). The recipient can update this information at any time by sending an [update](./PacketFormat.md) message to the sender.
 
-**Initial contact (friend request to a stranger):** If the recipient has published relay or mailbox hints through an [index node](./DiscoveryFlow.md), the sender can retrieve those hints and use them to deliver the friend request. If the recipient has not published any hints, the sender can only reach them through a direct connection, which requires both to be online at the same time.
+**Initial contact (friend request to a stranger):** If the recipient has published a [public routing hint](./RoutingInfo.md) through an [index node](./DiscoveryFlow.md), the sender can retrieve that hint and use it to deliver the [friend request](./FriendRequest.md). If the recipient has not published any hint, the sender can only reach them through a direct connection, which requires both to be online at the same time.
 
 
 

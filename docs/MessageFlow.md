@@ -49,7 +49,7 @@ Both peers are reachable and establish a direct encrypted connection.
 
 
 
-If direct P2P communication is not possible (due to NAT or other connectivity restrictions), communication may be forwarded through [relay nodes](./NodeTypes.md). Relay configuration is predefined by the recipient. The sender follows the relay configuration provided by the recipient.
+If direct P2P communication is not possible (due to NAT or other connectivity restrictions), communication may be forwarded through [relay nodes](./NodeTypes.md) using the [relay protocol](./RelayProtocol.md). Relay [configuration](./Configuration.md) is predefined by the recipient.
 
 
 
@@ -63,7 +63,7 @@ If direct P2P communication is not possible (due to NAT or other connectivity re
 
 
 
-If the recipient is offline or relay delivery is not possible, messages may be delivered through [mailbox nodes](./NodeTypes.md). Mailbox nodes temporarily store encrypted message data until the recipient retrieves it. Mailbox configuration is defined by the recipient.
+If the recipient is offline or relay delivery is not possible, messages may be delivered through [mailbox nodes](./NodeTypes.md). Mailbox nodes temporarily store encrypted message data until the recipient retrieves it. Mailbox [configuration](./Configuration.md) is defined by the recipient.
 
 
 

@@ -6,7 +6,7 @@
 
 
 
-This document describes how the [DAPX](../README.md) protocol upholds the core principles of information security across all of its components, including [Node Types](./NodeTypes.md), [Message Flow](./MessageFlow.md), [Packet Format](./PacketFormat.md), and [Discovery](./DiscoveryFlow.md).
+This document describes how the [DAPX](../README.md) protocol upholds the core principles of information security across all of its components, including [Node Types](./NodeTypes.md), [Message Flow](./MessageFlow.md), [Packet Format](./PacketFormat.md), [Routing Information](./RoutingInfo.md), [Friend Requests](./FriendRequest.md), [Relay Protocol](./RelayProtocol.md), [Discovery](./DiscoveryFlow.md), [Mailbox Protocol](./MailboxProtocol.md), and [Configuration](./Configuration.md).
 
 
 
@@ -112,6 +112,62 @@ There is no mechanism for forcing a node to delete data, forward a packet, or ch
 Refusing to participate is always permitted. Compelling participation is never possible through the protocol.
 
 This applies at every layer. No message type, no update field, and no discovery mechanism carries the power to force action on nodes or users that have not voluntarily accepted it.
+
+
+
+---
+
+
+
+## Relay privacy
+
+Relay nodes use onion-style chaining as described in the [Relay Protocol](./RelayProtocol.md). The entry relay knows the sender's network address but not the exit relay or the recipient. The exit relay knows the recipient but not the sender's address. Middle relays know only their immediate neighbors. No single relay in the chain knows the full path.
+
+This limits the information available to any compromised relay node. Even if an attacker controls one relay in the chain, they cannot determine both the sender and the recipient of a given packet.
+
+
+
+---
+
+
+
+## Friendship tokens and revocation
+
+Each friendship produces a unique [friendship token](./RoutingInfo.md) that authorizes the sender to use the recipient's infrastructure nodes. Because tokens are per-relationship, a user can revoke one friend's access without affecting any other friend.
+
+When a user [unfriends](./FriendRequest.md) someone, the revoked token is removed from all of the user's infrastructure nodes through the normal [configuration update](./Configuration.md) process. The revoked friend can no longer deposit messages or route through relays. This revocation is immediate once the config update propagates.
+
+
+
+---
+
+
+
+## Configuration update security
+
+Configuration updates are signed by the user's identity key (see [Packet Format](./PacketFormat.md)). When a node receives a config update, whether directly from the user or propagated by another node, it verifies the user's signature before acting on it. The forwarding node is a courier, not an authority. It cannot alter the update or forge one.
+
+To prevent update spam, nodes enforce a protocol-defined minimum interval between different config updates from the same user. Duplicate deliveries of the same update (same timestamp) are accepted and acknowledged, but a new update that arrives before the interval has passed is rejected.
+
+When a user removes a node from their configuration, the removed node is required by the protocol to delete all stored data for that user and stop accepting new deposits or forwarding. The full configuration model is described in [Configuration](./Configuration.md).
+
+
+
+---
+
+
+
+## Spam protection
+
+Mailbox nodes are exposed to abuse because they accept deposits on behalf of offline recipients. The [Mailbox Protocol](./MailboxProtocol.md) defines the full mechanism. In summary:
+
+- Depositing a message requires completing a proof-of-work challenge.
+- Normal use requires only a very short computation time.
+- If a sender deposits at a high rate, the difficulty increases progressively for that sender.
+- When a sender reaches a difficulty threshold, the node blocks them for a period of time, then allows them again.
+- If a sender gets blocked multiple times within a timeframe and shows barely any normal usage between blocks, the node permanently blocks that sender as defined by the protocol.
+
+This approach protects availability without introducing a central authority or requiring identity disclosure from senders.
 
 
 

@@ -33,6 +33,10 @@ If direct communication is not possible, the system algorithmically selects alte
 1. Relay Communication (**A → Relay Node → B**)
 1. Mailbox Delivery (**A → Mailbox Node ⇄ B**)
 
+**[Mailbox Protocol](./MailboxProtocol.md)**
+
+How messages are deposited, stored, retrieved, and deleted on mailbox nodes. Covers access control, polling-based retrieval, deletion after acknowledgement or TTL expiry, and spam protection through adaptive proof of work.
+
 **[Routing Rules](./RoutingRules.md)**
 
 The client follows a fixed delivery sequence: direct P2P (including STUN/hole-punching), then relay, then mailbox. If all paths fail, the message is queued locally and retried with backoff.
@@ -41,6 +45,22 @@ The client follows a fixed delivery sequence: direct P2P (including STUN/hole-pu
 
 DAPX uses a universal two-layer packet structure for all communication.
 The outer envelope handles routing without exposing identities. The inner payload carries encrypted content only the recipient can read.
+
+**[Routing Information](./RoutingInfo.md)**
+
+What routing information contains, how it is structured (private routing info for friends vs public routing hints for discovery), friendship tokens, and how updates are distributed.
+
+**[Friend Requests and Friendships](./FriendRequest.md)**
+
+How friendships are established, maintained, and ended. Covers sending and delivering friend requests, acceptance, expiry, display names, and unfriending with token revocation.
+
+**[Relay Protocol](./RelayProtocol.md)**
+
+How relay nodes forward traffic. Covers authorization via friendship tokens, per-packet stateless delivery, onion-style relay chaining, and what each relay in a chain can see.
+
+**[Configuration](./Configuration.md)**
+
+All configuration lives on the user's client node and is propagated to infrastructure nodes through signed updates. Covers node selection (manual and automatic), config propagation across mailbox and relay nodes, segmentation thresholds, update ordering, and node removal.
 
 **[Security](./Security.md)**
 

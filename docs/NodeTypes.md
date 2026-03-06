@@ -42,7 +42,9 @@ Client nodes represent the actual user in the network.
 
 - fetch public discovery information from index nodes  
 
-- store their chats locally  
+- store their chats locally
+
+- store and manage their own [configuration](./Configuration.md), and propagate config updates to their infrastructure nodes
 
 
 
@@ -76,7 +78,9 @@ Mailbox nodes enable asynchronous delivery when the recipient is offline.
 
 - temporarily store encrypted messages  
 
-- allow recipient to retrieve messages later  
+- allow recipient to retrieve messages later
+
+- propagate [config updates](./Configuration.md) to other mailbox nodes of the same user
 
 
 
@@ -96,7 +100,7 @@ Mailbox nodes enable asynchronous delivery when the recipient is offline.
 
 A message can be split across multiple mailbox nodes. Only a subset of the segments is required to reconstruct the original message, similar to erasure coding. This allows delivery to succeed even if some mailbox nodes become unavailable.
 
-The recipient decides how many mailbox nodes are used, how long messages remain stored, and the degree of segmentation.
+The recipient decides how many mailbox nodes are used, how long messages remain stored, and the degree of segmentation. These settings are part of the user's [configuration](./Configuration.md).
 
 
 
@@ -116,9 +120,13 @@ Relay nodes enable communication when direct connections cannot be established.
 
 
 
-- temporarily forward encrypted traffic between peers  
+- temporarily forward encrypted traffic between peers
 
 - help bypass NAT or connectivity restrictions
+
+- support [relay chaining](./RelayProtocol.md) (onion-style multi-hop forwarding)
+
+- propagate [config updates](./Configuration.md) to other relay nodes of the same user
 
 
 

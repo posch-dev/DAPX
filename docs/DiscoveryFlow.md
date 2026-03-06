@@ -43,7 +43,7 @@ When a user changes or removes their information on the main index node, all oth
 
 
 
-When a user wants to find another peer, an index node returns the public metadata associated with the queried identity. Using the obtained information, A can attempt to directly contact B. B may then accept or reject the connection or friendship request.
+When a user wants to find another peer, an index node returns the public metadata and [public routing hint](./RoutingInfo.md) associated with the queried identity. Using the obtained information, A can attempt to contact B directly or deliver a [friend request](./FriendRequest.md) through B's published routing hint.
 
 
 

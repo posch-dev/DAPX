@@ -107,7 +107,7 @@ Examples of information that may be carried in the update field:
 
 
 
-The update field allows a single message type to cover all configuration changes across all node types. A mailbox node reads the update field to learn about storage policy. A relay node reads it to learn about forwarding preferences. An index node reads it to learn about discovery settings.
+The update field allows a single message type to cover all configuration changes across all node types. A mailbox node reads the update field to learn about storage policy. A relay node reads it to learn about forwarding preferences. An index node reads it to learn about discovery settings. The full configuration model, including how updates are propagated across nodes, is described in [Configuration](./Configuration.md).
 
 The update field does not contain message content and does not reveal information about other participants.
 
@@ -157,7 +157,7 @@ DAPX uses opaque routing tokens instead of exposing peer identities in the outer
 
 A routing token is a value that allows a node to determine where to deliver a packet without revealing the identity of the sender or the recipient.
 
-Routing tokens are generated and distributed by the recipient as part of their routing configuration.
+Routing tokens are generated and distributed by the recipient as part of their [routing information](./RoutingInfo.md). Each token is unique to a specific friendship, so that access can be revoked per relationship without affecting others.
 
 The sender includes the appropriate routing token in the outer envelope when sending a packet.
 
@@ -179,11 +179,11 @@ The following types of messages are anticipated:
 
 - **message**: a standard communication between peers
 
-- **friend request**: an initial contact request from one peer to another
+- **friend request**: an initial contact request from one peer to another (see [Friend Requests](./FriendRequest.md))
 
 - **friend accept**: acceptance of a friend request
 
-- **friend reject**: rejection of a friend request
+- **unfriend**: notification that a friendship has been ended, triggering token revocation
 
 - **update**: a configuration change sent to an infrastructure node, carried in the update field
 
