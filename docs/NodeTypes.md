@@ -84,11 +84,19 @@ Mailbox nodes enable asynchronous delivery when the recipient is offline.
 
 
 
-- messages remain encrypted  
+- messages remain encrypted
 
-- storage is temporary  
+- storage is temporary
 
-- multiple mailbox nodes may exist  
+- multiple mailbox nodes may exist
+
+
+
+**Segmentation**
+
+A message can be split across multiple mailbox nodes. Only a subset of the segments is required to reconstruct the original message, similar to erasure coding. This allows delivery to succeed even if some mailbox nodes become unavailable.
+
+The recipient decides how many mailbox nodes are used, how long messages remain stored, and the degree of segmentation.
 
 
 

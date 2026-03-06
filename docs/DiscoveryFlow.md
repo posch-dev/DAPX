@@ -29,9 +29,9 @@ If discoverability is enabled, the user may publish:
 
 This information is published to an index node chosen by the user as their **main index node**.
 
-The main index node distributes this discovery information to other known index nodes using a gossip-style propagation mechanism. However, the main index node remains the authority for the entry.
-If the user withdraws discovery from their main index node, the other index nodes are expected to remove the data as well.
-This can be enforced through periodic update or deletion queries between index nodes.
+The main index node distributes this discovery information to other known index nodes using a gossip-style propagation mechanism. The main index node is the sole authority for that user's entry.
+
+When a user changes or removes their information on the main index node, all other index nodes that hold a copy of that data must follow. They are bound by the propagation contract established when the data was first gossiped. Periodic synchronization queries between index nodes enforce this. An index node that holds outdated or revoked data and refuses to update it is in violation of the protocol.
 
 
 

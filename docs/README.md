@@ -33,6 +33,20 @@ If direct communication is not possible, the system algorithmically selects alte
 1. Relay Communication (**A → Relay Node → B**)
 1. Mailbox Delivery (**A → Mailbox Node ⇄ B**)
 
+**[Routing Rules](./RoutingRules.md)**
+
+The client follows a fixed delivery sequence: direct P2P (including STUN/hole-punching), then relay, then mailbox. If all paths fail, the message is queued locally and retried with backoff.
+
+**[Packet Format](./PacketFormat.md)**
+
+DAPX uses a universal two-layer packet structure for all communication.
+The outer envelope handles routing without exposing identities. The inner payload carries encrypted content only the recipient can read.
+
+**[Security](./Security.md)**
+
+DAPX builds security into the structure of the protocol rather than relying on trusted parties.
+This document describes how the protocol upholds confidentiality, integrity, authenticity, availability, and decentralization across all components.
+
 **[Discovery Flow](./DiscoveryFlow.md)**
 
 Discovery is optional and fully controlled by the user. A user may choose whether they want to be discoverable or not.
